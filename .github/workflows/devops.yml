@@ -34,10 +34,10 @@ jobs:
           script: ./MakeFeed.ps1
 
       # Save the feed for later
-      - name: Upload teh feed.rss file
+      - name: Upload the feed.rss file
         uses: actions/upload-artifact@v2
         with:
           name: feed
           path: |
-            ./feed.rss
+            feed.rss
           retention-days: 7

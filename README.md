@@ -14,3 +14,8 @@ see https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-p
 ## Build and Test
 
 The weekly schedule to update the file then assign the output as a build artefact, which can be read with latest reference
+
+## Use feed
+https://raw.githubusercontent.com/RolfEleveld/Cloud.Army.Rss.Processor/main/feed.rss
+
+https://raw.githubusercontent.com/tomarbuthnot/Run-PowerShell-Directly-From-GitHub/master/Run-FromGitHub-SamplePowerShell.ps1
