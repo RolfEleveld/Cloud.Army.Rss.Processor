@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "xml" ]
   pull_request:
     branches: [ "main" ]
 
@@ -33,7 +33,16 @@ jobs:
           # PowerShell script to execute in Actions-hydrated context
           script: ./MakeFeed.ps1
 
-      # Save the feed for later
+      - name: Commit feed.rss
+        run: |
+          git config user.name 'Github Build Service'
+          git config user.email 'rolf.eleveld@outlook.com'
+          git remote set-url origin https://github.com/RolfEleveld/Cloud.Army.Rss.Processor.git
+          git checkout xml
+          git commit -m "Updated feed.rss"
+          git push
+
+      # Save the feed in for later
       - name: Upload the feed.rss file
         uses: actions/upload-artifact@v2
         with:
@@ -41,3 +50,4 @@ jobs:
           path: |
             feed.rss
           retention-days: 7
+
