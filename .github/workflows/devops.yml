@@ -25,6 +25,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # Get XML branch
+      - name: Get Feed and assure xml branch
+        run: |
+          git config user.name 'Github Build Service'
+          git config user.email 'rolf.eleveld@outlook.com'
+          git remote set-url origin https://github.com/RolfEleveld/Cloud.Army.Rss.Processor.git
+          git checkout xml
+
       # Run the create RSS Script
       - name: Create the feed with a PowerShell script
         # You may pin to the exact commit or the version.
@@ -33,21 +41,9 @@ jobs:
           # PowerShell script to execute in Actions-hydrated context
           script: ./MakeFeed.ps1
 
-      - name: Commit feed.rss
+      # Commit against XML branch
+      - name: Commit updated feed.rss
         run: |
-          git config user.name 'Github Build Service'
-          git config user.email 'rolf.eleveld@outlook.com'
-          git remote set-url origin https://github.com/RolfEleveld/Cloud.Army.Rss.Processor.git
-          git checkout xml
           git commit -m "Updated feed.rss"
           git push
-
-      # Save the feed in for later
-      - name: Upload the feed.rss file
-        uses: actions/upload-artifact@v2
-        with:
-          name: feed
-          path: |
-            feed.rss
-          retention-days: 7
 
