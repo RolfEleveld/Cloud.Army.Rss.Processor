@@ -14,7 +14,7 @@ see https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-p
 ## Build and Test
 
 The weekly schedule to update the file then assign the output as a build artefact, which can be read with latest reference
-
+See https://github.com/features/actions
 See https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 See https://stackoverflow.com/questions/57921401/push-to-origin-from-github-action/58393457#58393457
 
