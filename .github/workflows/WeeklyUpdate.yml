@@ -4,11 +4,9 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # Weekly Sunday(0) at 3 minutes pas 5 am.
+  schedule:
+  - cron: '3 5 * * 0'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,7 +21,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Selecting the xml branch
       - uses: actions/checkout@v3
+        with:
+          ref: xml
 
       # Run the create RSS Script
       - name: Create the feed with a PowerShell script
@@ -33,11 +34,10 @@ jobs:
           # PowerShell script to execute in Actions-hydrated context
           script: ./MakeFeed.ps1
 
-      # Save the feed for later
-      - name: Upload the feed.rss file
-        uses: actions/upload-artifact@v2
-        with:
-          name: feed
-          path: |
-            feed.rss
-          retention-days: 7
+      # Commit against XML branch
+      - name: Commit updated feed.rss
+        run: |
+          git config user.name 'Github Build Service'
+          git config user.email 'rolf.eleveld@outlook.com'
+          git commit -m "Updated feed.rss"
+          git push
