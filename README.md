@@ -19,7 +19,7 @@ See https://docs.github.com/en/authentication/keeping-your-account-and-data-secu
 See https://stackoverflow.com/questions/57921401/push-to-origin-from-github-action/58393457#58393457
 
 ## Use feed
-https://raw.githubusercontent.com/RolfEleveld/Cloud.Army.Rss.Processor/main/feed.rss
+https://raw.githubusercontent.com/RolfEleveld/Cloud.Army.Rss.Processor/xml/feed.rss
 
 https://github.com/RolfEleveld/Cloud.Army.Rss.Processor/suites/7289037139/artifacts/293847515
 
