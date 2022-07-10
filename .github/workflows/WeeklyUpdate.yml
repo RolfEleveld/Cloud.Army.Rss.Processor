@@ -29,7 +29,7 @@ jobs:
           git config user.name 'Github Build Service'
           git config user.email 'rolf.eleveld@outlook.com'
           git remote set-url origin https://github.com/RolfEleveld/Cloud.Army.Rss.Processor.git
-          git checkout xml
+          git checkout 'origin/xml'
 
       # Run the create RSS Script
       - name: Create the feed with a PowerShell script
