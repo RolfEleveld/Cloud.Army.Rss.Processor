@@ -39,5 +39,6 @@ jobs:
         run: |
           git config user.name 'Github Build Service'
           git config user.email 'rolf.eleveld@outlook.com'
+          git add -a
           git commit -m "Updated feed.rss"
           git push
