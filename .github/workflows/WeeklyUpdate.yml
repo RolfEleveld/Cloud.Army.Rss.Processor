@@ -26,6 +26,12 @@ jobs:
         with:
           ref: xml
 
+      # Create a checksum for feed
+      - name: Get checksum of old feed.rss
+        run: |
+          echo "::set-output name=HASH::$(cat feed.rss | sha256sum)"
+        id: oldchecksum
+
       # Run the create RSS Script
       - name: Create the feed with a PowerShell script
         # You may pin to the exact commit or the version.
@@ -34,8 +40,14 @@ jobs:
           # PowerShell script to execute in Actions-hydrated context
           script: ./MakeFeed.ps1
 
+      - name: Get checksum of new feed.rss
+        run: |
+          echo "::set-output name=HASH::$(cat feed.rss | sha256sum)"
+        id: newchecksum
+
       # Commit against XML branch
       - name: Commit updated feed.rss
+        if: steps.oldchecksum.outputs.HASH != steps.newchecksum.outputs.HASH
         run: |
           git config user.name 'Github Build Service'
           git config user.email 'rolf.eleveld@outlook.com'
