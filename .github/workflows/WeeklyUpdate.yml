@@ -28,8 +28,7 @@ jobs:
 
       # Create a checksum for feed
       - name: Get checksum of old feed.rss
-        run: |
-          echo "::set-output name=HASH::$(cat feed.rss | sha256sum)"
+        run: echo "HASH=$(cat feed.rss | sha256sum)" >> $GITHUB_OUTPUT
         id: oldchecksum
 
       # Run the create RSS Script
@@ -41,8 +40,7 @@ jobs:
           script: ./MakeFeed.ps1
 
       - name: Get checksum of new feed.rss
-        run: |
-          echo "::set-output name=HASH::$(cat feed.rss | sha256sum)"
+        run: echo "HASH=$(cat feed.rss | sha256sum)" >> $GITHUB_OUTPUT
         id: newchecksum
 
       # Commit against XML branch
