@@ -1,0 +1,43 @@
+trigger: none # No CI build
+pr: none # Not for pull requests
+
+schedules:
+- cron: "0 0 * * *" # cron syntax defining a schedule https://learn.microsoft.com/en-us/azure/devops/pipelines/process/scheduled-triggers?view=azure-devops&tabs=yaml
+  displayName: "every day midnight check" # friendly name given to a specific schedule
+  branches:
+    include:
+    # Selecting the xml branch
+     - xml # which branches the schedule applies to
+  batch: true # run parrallel when already running an instance in this pool.
+  always: true # whether to always run the pipeline or only if there have been source code changes since the last successful scheduled run. The default is false.
+
+jobs:
+- job: 'Check-and-update-feed'
+  timeoutInMinutes: 20 # Run forever on self hosted clients
+  strategy:
+    maxParallel: 1
+  pool:
+    name: HomePool
+    demands:
+    - Agent.OS -equals Linux
+  steps:
+  - task: PowerShell@2
+    displayName: 'Validate Feed Before Commit'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Create a checksum for feed
+        $oldchecksup = (Get-Content -Path .\feed.rss).GetHashCode()
+        # Run the create RSS Script
+        ./MakeFeed.ps1
+        #Get checksum of new feed.rss
+        $newchecksum = (Get-Content -Path .\feed.rss).GetHashCode()
+        # See Hashes for old and new feed
+        if ($oldchecksum -ne $newchecksum){
+          # Commit against XML branch
+          git config user.name 'Github Build Service'
+          git config user.email 'rolf.eleveld@outlook.com'
+          git add --all
+          git commit -m "Updated feed.rss"
+          git push
+        }
