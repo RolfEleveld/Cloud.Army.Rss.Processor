@@ -12,7 +12,7 @@ schedules:
   always: true # whether to always run the pipeline or only if there have been source code changes since the last successful scheduled run. The default is false.
 
 jobs:
-- job: 'Check-and-update-feed'
+- job: 'Check_and_update_feed'
   timeoutInMinutes: 20 # Run forever on self hosted clients
   strategy:
     maxParallel: 1
