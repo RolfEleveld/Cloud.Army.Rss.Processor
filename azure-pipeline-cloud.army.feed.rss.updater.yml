@@ -26,8 +26,10 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        # Create a checksum for feed
+        # get the xml branch connected
+        git pull origin xml
         git checkout xml
+        # Create a checksum for feed
         $oldchecksum = (Get-Content -Path .\feed.rss).GetHashCode()
         # Run the create RSS Script
         ./MakeFeed.ps1
