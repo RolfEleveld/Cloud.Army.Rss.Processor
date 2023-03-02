@@ -7,7 +7,7 @@ schedules:
   branches:
     include:
     # Selecting the xml branch
-     - xml # which branches the schedule applies to
+     - main # which branches the schedule applies to
   batch: true # run parrallel when already running an instance in this pool.
   always: true # whether to always run the pipeline or only if there have been source code changes since the last successful scheduled run. The default is false.
 
@@ -40,8 +40,6 @@ jobs:
         if ($oldchecksum -ne $newchecksum){
           Write-Warning ("feed.rss updated with checksum old/new {0}/{1}" -f $oldchecksum, $newchecksum)
           # Commit against XML branch
-          git config user.name 'Github Build Service'
-          git config user.email 'rolf.eleveld@outlook.com'
           git add --all
           git commit -m "Updated feed.rss"
           git push
