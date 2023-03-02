@@ -21,6 +21,7 @@ jobs:
     demands:
     - Agent.OS -equals Linux
   steps:
+  - checkout: none
   - task: PowerShell@2
     displayName: 'Validate Feed Before Commit'
     inputs:
