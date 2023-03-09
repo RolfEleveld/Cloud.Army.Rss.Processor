@@ -18,18 +18,22 @@ jobs:
     maxParallel: 1
   pool:
     name: HomePool
-    demands:
-    - Agent.OS -equals Linux
+    # demands:
+    # - Agent.OS -equals Linux
   steps:
-  - checkout: none
+  - checkout: self
+    fetchDepth: 0
+    fetchTags: true
+    submodules: true
+    persistCredentials: true
   - task: PowerShell@2
     displayName: 'Validate Feed Before Commit'
     inputs:
       targetType: 'inline'
       script: |
         # get the xml branch connected
-        git pull origin xml
-        git checkout xml
+        # git pull origin xml
+        # git checkout xml
         # Create a checksum for feed
         $oldchecksum = (Get-Content -Path .\feed.rss).GetHashCode()
         # Run the create RSS Script
