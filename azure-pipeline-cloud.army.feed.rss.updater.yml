@@ -46,5 +46,5 @@ jobs:
           # Commit against XML branch
           git add --all
           git commit -m "Updated feed.rss"
-          git push
+          git push origin HEAD:xml
         }
