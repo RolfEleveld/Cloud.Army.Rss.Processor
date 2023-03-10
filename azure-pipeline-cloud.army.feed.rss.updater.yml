@@ -7,7 +7,7 @@ schedules:
   branches:
     include:
     # Selecting the xml branch
-     - main # which branches the schedule applies to
+     - xml # which branches the schedule applies to
   batch: true # run parrallel when already running an instance in this pool.
   always: true # whether to always run the pipeline or only if there have been source code changes since the last successful scheduled run. The default is false.
 
