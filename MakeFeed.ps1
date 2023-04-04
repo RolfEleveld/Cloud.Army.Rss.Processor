@@ -151,4 +151,4 @@ function Get-RSSFeedFromCloudArmyWebSite {
     }
 }
 
-Get-RSSFeedFromCloudArmyWebSite | Out-File -Path "feed.rss"
+Get-RSSFeedFromCloudArmyWebSite | Out-File -FilePath "feed.rss" -Encoding utf8
