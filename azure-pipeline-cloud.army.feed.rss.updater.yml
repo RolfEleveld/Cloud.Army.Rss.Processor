@@ -29,6 +29,7 @@ jobs:
   - task: PowerShell@2
     displayName: 'Validate Feed Before Commit'
     inputs:
+      pwsh: true
       targetType: 'inline'
       script: |
         # get the xml branch connected
